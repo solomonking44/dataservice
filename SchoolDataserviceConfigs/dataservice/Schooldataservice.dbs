@@ -1,0 +1,31 @@
+<data transports="http https" serviceGroup="" serviceNamespace="" name="Schooldataservice">
+  <description>Student_info</description>
+  <config id="students">
+    <property name="driverClassName">com.mysql.cj.jdbc.Driver</property>
+    <property name="url">jdbc:mysql://localhost:3306/students</property>
+    <property name="username">root</property>
+    <property name="password">admin</property>
+  </config>
+  <operation name="getstudentinfo">
+    <call-query href="getstudentinfo">
+      <with-param name="studentsinfomapping" query-param="studentsinfomapping" />
+    </call-query>
+  </operation>
+  <resource method="GET" path="/students">
+    <description />
+    <call-query href="getstudentinfo">
+      <with-param name="studentsinfomapping" query-param="studentsinfomapping" />
+    </call-query>
+  </resource>
+  <query id="getstudentinfo" useConfig="students">
+    <sql>SELECT * FROM info</sql>
+    <param type="IN" name="studentsinfomapping" paramType="SCALAR" sqlType="STRING" optional="false" />
+    <result element="students">
+      <element name="id" column="id" xsdType="string" />
+      <element name="first_name" column="first_name" xsdType="string" />
+      <element name="middle_name" column="middle_name" xsdType="string" />
+      <element name="last_name" column="last_name" xsdType="string" />
+      <element name="age" column="age" xsdType="string" />
+    </result>
+  </query>
+</data>
